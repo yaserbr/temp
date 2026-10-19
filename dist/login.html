@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QA Lite | Login</title>
+    <link rel="icon" type="image/webp" href="images/MobilyLogo.svg.webp">
+    <link rel="preload" as="image" href="images/login-visual.webp">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/mock/mock-data.js"></script>
+    <script src="js/mock/mock-api.js"></script>
+    <script defer src="js/page-transition.js"></script>
+</head>
+<body>
+<main class="login-page">
+    <script>
+        if (new URLSearchParams(window.location.search).has("returning")) {
+            document.currentScript.parentElement.classList.add("is-returning");
+        }
+    </script>
+    <div class="login-visual-layer" aria-hidden="true">
+        <img src="images/login-visual.webp" alt="" fetchpriority="high">
+    </div>
+
+    <section class="login-shell" aria-label="QA Lite login">
+        <div class="login-quote">
+            <span class="quote-mark">"</span>
+            <p>Secure access to predefined SQL execution for QA teams.</p>
+        </div>
+
+        <section class="form-panel">
+            <div class="form-copy">
+                <h1>Welcome Back</h1>
+                <p>Sign in to continue to the QA Lite portal</p>
+            </div>
+
+            <div id="login-error" class="alert error is-hidden" role="alert">
+                Invalid username or password.
+            </div>
+            <div id="register-error" class="alert error is-hidden" role="alert">
+                Registration failed.
+            </div>
+            <div id="logout-success" class="alert success is-hidden">
+                You have been signed out.
+            </div>
+            <div id="register-success" class="alert success is-hidden">
+                Account created. You can sign in now.
+            </div>
+
+            <form action="#" data-success-url="index.html" method="post" class="login-form" id="login-form">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" placeholder="Username"
+                    required autofocus>
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Password" required>
+
+                <button type="submit">Login</button>
+                <button type="submit" class="auth-secondary-button" data-auth-action="register">Register</button>
+            </form>
+
+            <p class="demo-hint">Demo mode &middot; sign in as <strong>admin</strong> / admin123 or
+                <strong>qa_user</strong> / qauser123</p>
+        </section>
+    </section>
+</main>
+<script>
+    (() => {
+        const params = new URLSearchParams(window.location.search);
+        document.querySelector("#login-error").classList.toggle("is-hidden", !params.has("error"));
+        document.querySelector("#logout-success").classList.toggle("is-hidden", !params.has("logout"));
+    })();
+</script>
+</body>
+</html>

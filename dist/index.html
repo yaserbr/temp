@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QA Lite | Dashboard</title>
+    <link rel="icon" type="image/webp" href="images/MobilyLogo.svg.webp">
+    <link rel="preload" as="image" href="images/login-visual.webp">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/mock/mock-data.js"></script>
+    <script src="js/mock/mock-sql-engine.js"></script>
+    <script src="js/mock/mock-api.js"></script>
+    <script>QaLite.auth.guard();</script>
+    <script defer src="js/page-transition.js"></script>
+</head>
+
+<body>
+    <main class="dashboard-page">
+        <header class="dashboard-topbar">
+            <div class="dashboard-brand">
+                <img class="brand-mark brand-logo dashboard-brand-mark" src="images/splash-icon.png"
+                    alt="Mobily logo">
+                <strong>QA Lite</strong>
+            </div>
+
+            <div class="dashboard-actions" id="dashboard-actions">
+                <form action="#" data-login-url="login.html?returning=true" method="post"
+                    class="logout-form dashboard-logout">
+                    <button type="submit" aria-label="Logout" title="Logout">
+                        <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M10 17l5-5-5-5"></path>
+                            <path d="M15 12H3"></path>
+                            <path d="M21 19V5a2 2 0 0 0-2-2h-6"></path>
+                            <path d="M13 21h6a2 2 0 0 0 2-2"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <section class="builder-layout" aria-label="SQL execution builder">
+            <aside class="env-rail" aria-label="Environments" id="env-rail">
+                <p class="section-heading">Environment</p>
+            </aside>
+
+            <section class="workspace-panel" aria-label="Workspace">
+                <div class="workspace-header">
+                    <div>
+                        <p class="section-heading">Build execution</p>
+                    </div>
+                    <button type="button" class="run-button workspace-run-button" id="run-command" disabled>Execute</button>
+                </div>
+
+                <div class="workflow-canvas" id="workflow-canvas"></div>
+
+                <section class="result-panel" aria-label="Result">
+                    <p class="section-heading">Result</p>
+                    <div class="result-output is-empty" id="result-output">No execution yet.</div>
+                </section>
+            </section>
+
+            <aside class="command-shelf" aria-label="SQL blocks" id="command-shelf">
+                <p class="section-heading">SQL Blocks</p>
+            </aside>
+        </section>
+    </main>
+    <script src="js/dashboard-view.js"></script>
+</body>
+
+</html>

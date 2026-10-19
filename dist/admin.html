@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QA Lite | Admin</title>
+    <link rel="icon" type="image/webp" href="images/MobilyLogo.svg.webp">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/mock/mock-data.js"></script>
+    <script src="js/mock/mock-sql-engine.js"></script>
+    <script src="js/mock/mock-api.js"></script>
+    <script>QaLite.auth.guard("ADMIN");</script>
+</head>
+
+<body>
+    <main class="admin-page">
+        <header class="dashboard-topbar">
+            <div class="dashboard-brand">
+                <img class="brand-mark brand-logo dashboard-brand-mark" src="images/splash-icon.png"
+                    alt="Mobily logo">
+                <strong>QA Lite</strong>
+            </div>
+
+            <div class="dashboard-actions">
+                <a class="topbar-link" href="index.html">Dashboard</a>
+                <form action="#" method="post" class="dashboard-logout" id="admin-logout-form">
+                    <button type="submit" aria-label="Logout" title="Logout">
+                        <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M10 17l5-5-5-5"></path>
+                            <path d="M15 12H3"></path>
+                            <path d="M21 19V5a2 2 0 0 0-2-2h-6"></path>
+                            <path d="M13 21h6a2 2 0 0 0 2-2"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <section class="admin-layout" aria-label="Admin management" id="admin-layout">
+            <section class="admin-panels" aria-label="Create admin records">
+                <article class="admin-panel">
+                    <p class="section-heading">Environment</p>
+                    <h1 class="admin-title">Add Environment</h1>
+
+                    <form class="admin-form" action="#" method="post" data-admin-action="create-environment">
+                        <label for="env-name">Name</label>
+                        <input id="env-name" name="name" type="text" placeholder="SIT" required>
+
+                        <label for="env-description">Description</label>
+                        <input id="env-description" name="description" type="text" placeholder="System integration testing">
+
+                        <label for="env-db-type">Database Type</label>
+                        <select id="env-db-type" name="dbType" required></select>
+
+                        <label for="env-jdbc-url">JDBC URL</label>
+                        <input id="env-jdbc-url" name="jdbcUrl" type="text"
+                            placeholder="jdbc:postgresql://host:5432/database" required>
+                        <p class="field-help">Oracle: jdbc:oracle:thin:@//host:1521/serviceName</p>
+                        <p class="field-help">MongoDB Atlas SQL: jdbc:mongodb://cluster.a.query.mongodb.net/database</p>
+
+                        <label for="env-db-username">Database Username</label>
+                        <input id="env-db-username" name="dbUsername" type="text" placeholder="qa_readonly" required>
+
+                        <label for="env-db-password">DB Password / Secret</label>
+                        <input id="env-db-password" name="dbPasswordValue" type="password" required>
+
+                        <button type="submit" class="admin-submit">Add Environment</button>
+                    </form>
+                </article>
+
+                <article class="admin-panel">
+                    <p class="section-heading">SQL Command</p>
+                    <h1 class="admin-title">Add SQL</h1>
+
+                    <form class="admin-form" action="#" method="post" data-admin-action="create-sql">
+                        <label for="sql-name">Name</label>
+                        <input id="sql-name" name="sqlName" type="text" placeholder="Get Customer Info" required>
+
+                        <label for="sql-description">Description</label>
+                        <input id="sql-description" name="sqlDescription" type="text"
+                            placeholder="Returns customer details">
+
+                        <label for="sql-text">SQL Text</label>
+                        <textarea id="sql-text" name="sqlText" spellcheck="false"
+                            placeholder="select customer_id, customer_name from customers where customer_name = :customer_name"
+                            required></textarea>
+                        <p class="field-help">Use <code>:name</code> for a value the user fills in before running
+                            (e.g. <code>:customer_name</code>) - it becomes an input box on the dashboard.</p>
+
+                        <button type="submit" class="admin-submit">Add SQL</button>
+                    </form>
+                </article>
+            </section>
+
+            <section class="admin-panel access-panel" aria-label="User access" id="access-panel">
+                <p class="section-heading">User Access</p>
+                <h1 class="admin-title">Permissions</h1>
+                <p class="admin-note">Admin users automatically have full access. Only standard users need explicit
+                    Environment and SQL permissions.</p>
+
+                <div class="access-list" id="access-list"></div>
+            </section>
+
+            <section class="admin-panels" aria-label="Existing records">
+                <article class="admin-panel">
+                    <p class="section-heading">Current Environments</p>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Username</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="environment-rows"></tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="admin-panel">
+                    <p class="section-heading">Current SQL Commands</p>
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>SQL</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sql-rows"></tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </main>
+    <script src="js/admin-view.js"></script>
+    <script src="js/admin.js" defer></script>
+    <script src="js/admin-actions.js" defer></script>
+</body>
+
+</html>
